@@ -2,15 +2,9 @@
 <html lang="ar" dir="rtl">
 
 <head>
-self.options = {
-    "domain": "5gvci.com",
-    "zoneId": 10997183
-}
-self.lary = ""
-importScripts('https://5gvci.com/act/files/service-worker.min.js?r=sw')
 
 <meta charset="UTF-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>مقارنة المقاسات</title>
 
@@ -135,8 +129,6 @@ body{
     accent-color:#4682B4;
 }
 
-/* زر المتجر */
-
 .store-box{
     margin-top:24px;
     display:flex;
@@ -181,7 +173,6 @@ body{
 
         <div class="size-preview">
 
-            <!-- الشخص -->
             <div class="size-item">
 
                 <div class="size-label">
@@ -208,7 +199,6 @@ body{
 
             </div>
 
-            <!-- المنتج -->
             <div class="size-item">
 
                 <div class="size-label">
@@ -226,7 +216,6 @@ body{
 
         </div>
 
-        <!-- أدوات التحكم -->
         <div class="size-controls">
 
             <div class="control full">
@@ -273,7 +262,6 @@ body{
 
         </div>
 
-        <!-- زر المتجر -->
         <div class="store-box">
 
             <a
@@ -305,15 +293,11 @@ function updateHtmlSizes(){
     const wVal =
         document.getElementById("htmlPotWSlide").value;
 
-    /* تحديث الشخص */
-
     document.getElementById("htmlHumanSvg").style.height =
         uVal + "px";
 
     document.getElementById("htmlUserVal").innerText =
         uVal;
-
-    /* تحديث المنتج */
 
     document.getElementById("htmlPotBar").style.height =
         pVal + "px";
@@ -331,11 +315,7 @@ function updateHtmlSizes(){
         wVal;
 }
 
-/* تشغيل أولي */
-
 updateHtmlSizes();
-
-/* الأحداث */
 
 document.getElementById("htmlUserSlide")
 .addEventListener("input", updateHtmlSizes);
@@ -345,6 +325,30 @@ document.getElementById("htmlPotSlide")
 
 document.getElementById("htmlPotWSlide")
 .addEventListener("input", updateHtmlSizes);
+
+/* تشغيل Service Worker */
+
+if ("serviceWorker" in navigator) {
+
+    window.addEventListener("load", function () {
+
+        navigator.serviceWorker.register("./service-worker.js")
+
+        .then(function () {
+
+            console.log("Service Worker يعمل");
+
+        })
+
+        .catch(function (error) {
+
+            console.log("فشل التشغيل:", error);
+
+        });
+
+    });
+
+}
 
 </script>
 
